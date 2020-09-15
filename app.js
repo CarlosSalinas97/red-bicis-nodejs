@@ -1,3 +1,4 @@
+require('dotenv').config()
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -35,7 +36,12 @@ app.use(session({
 
 var mongoose = require('mongoose');
 const { decode } = require('punycode');
-var mongoDB = 'mongodb://localhost/red_bicicletas'
+
+// Si estoy en el ambiente de desarrollo, usar
+//var mongoDB = 'mongodb://localhost/red_bicicletas'
+
+// Sino usar:
+var mongoDB = process.env.MONGO_URI
 mongoose.connect(mongoDB,{useNewUrlParser: true})
 mongoose.Promise = global.Promise
 var db = mongoose.connection
