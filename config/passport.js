@@ -16,10 +16,11 @@ passport.use(new localStrategy(
     }
 ))
 
+
 passport.use(new GoogleStrategy({
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: process.env.HOST+"/auth/google/callback"
+    callbackURL: "https://red-bicicletas-salinas.herokuapp.com/auth/google/callback"
 },
     function(accessToken, refreshToken, profile, cb) {
         Usuario.findOrCreate({ googleId: profile.id }, function (err, user) {
