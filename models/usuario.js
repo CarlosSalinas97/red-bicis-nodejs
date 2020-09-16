@@ -108,7 +108,7 @@ usuarioSchema.methods.resetPassword = function(cb){
     })
 }
 
-userSchema.statics.findOneOrCreateByFacebook = function findOneOrCreate(condition, callback) {
+usuarioSchema.statics.findOneOrCreateByFacebook = function findOneOrCreate(condition, callback) {
     const self = this;
 
     this.findOne({
