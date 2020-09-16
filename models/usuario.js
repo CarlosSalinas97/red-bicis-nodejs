@@ -125,8 +125,8 @@ usuarioSchema.statics.findOneOrCreateByFacebook = function findOneOrCreate(condi
 
             values.facebookId = condition.id;
             values.email = condition.emails[0].value;
-            values.name = condition.displayName || '';
-            values.verified = true;
+            values.nombre = condition.displayName || '';
+            values.verificado = true;
             values.password = crypto.randomBytes(16).toString('hex');
 
             self.create(values, function (err, user) {

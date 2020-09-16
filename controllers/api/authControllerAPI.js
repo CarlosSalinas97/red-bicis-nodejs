@@ -34,7 +34,7 @@ module.exports = {
             req.user.save().then( () => {
                 const token = jwt.sign({ id: req.user.id }, req.app.get('secretKey'), { expiresIn: '7d' });
                 res.status(200).json({
-                    message: 'User not found',
+                    message: 'Usuario encontrado o creado',
                     data: {
                         user: req.user,
                         token: token

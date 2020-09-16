@@ -23,7 +23,7 @@ passport.use(new FacebookTokenStrategy({
     },
     function (accessToken, refreshToken, profile, done) {
     try {
-        User.findOneOrCreateByFacebook(profile, function (err, user) {
+        Usuario.findOneOrCreateByFacebook(profile, function (err, user) {
             if (err) {
                 console.log('Error: ' + err);
             }

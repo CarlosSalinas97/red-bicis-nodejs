@@ -9,6 +9,23 @@ head
   meta(name='google-site-verification' content='pxOa2Qv7Wq0cQ78SbERxoOVDxJ-XbKHZL8rvLmki3xs')
 
 body#LoginForm
+  script.
+    window.fbAsyncInit = function() {
+    FB.init({
+    appId      : '338366077220894',
+    cookie     : true,
+    xfbml      : true,
+    version    : 'v8.0'
+    });
+    FB.AppEvents.logPageView();
+    };
+    (function(d, s, id){
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) {return;}
+    js = d.createElement(s); js.id = id;
+    js.src = "https://connect.facebook.net/en_US/sdk.js";
+    fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
   .container
     .login-form
       .main-div
@@ -25,33 +42,9 @@ body#LoginForm
             input#password.form-control(type='password' placeholder='Password' name="password")
           .forgot
             a(href='/forgotPassword') Olvidé mi password
-            br
-            a(href='/auth/google') Entrar con Google
-            br
-            .fb-login-button(data-size='large' data-button-type='continue_with' data-layout='default' data-auto-logout-link='false' data-use-continue-as='false' data-width='')
-
-
-
+          a(href='/auth/google') Entrar con Google
+          br
+          .fb-login-button(data-size='large' data-button-type='continue_with' data-layout='default' data-auto-logout-link='false' data-use-continue-as='false' data-width='')
+          br
+          br
           button.btn.btn-primary(type='submit') Login
-
-  script.
-    window.fbAsyncInit = function() {
-    FB.init({
-    appId      : '{your-app-id}',
-    cookie     : true,
-    xfbml      : true,
-    version    : '{api-version}'
-    });
-    FB.AppEvents.logPageView();
-    };
-    (function(d, s, id){
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) {return;}
-    js = d.createElement(s); js.id = id;
-    js.src = "https://connect.facebook.net/en_US/sdk.js";
-    fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
-
-  script(async='' defer='' crossorigin='anonymous' src='https://connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v8.0&appId=338366077220894&autoLogAppEvents=1' nonce='9t1Xcv6S')
-
-
