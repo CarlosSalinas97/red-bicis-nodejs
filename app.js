@@ -139,6 +139,10 @@ app.use('/api/usuarios',usuarioAPIRouter)
 
 app.use('/', indexRouter);
 
+app.use('/policy_privacy', function(req, res){
+  res.sendFile(__dirname+'/public/policy_privacy.html')
+})
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
