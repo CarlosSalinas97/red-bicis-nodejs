@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const passport = require('./config/passport')
 const session = require('express-session')
+const MongoDBStore = require('connect-mongodb-session')(session)
 const jwt = require('jsonwebtoken')
 
 var indexRouter = require('./routes/index');
@@ -20,12 +21,23 @@ var authAPIRouter = require('./routes/api/auth')
 const Usuario = require('./models/usuario')
 const Token = require('./models/token')
 
-const store = new session.MemoryStore
+//const store = new session.MemoryStore
+let store 
+if(process.env.NODE_ENV === 'development'){
+  store = new session.MemoryStore
+}else{
+  store = new MongoDBStore({
+    uri: process.env.MONGO_URI,
+    collection: 'sessions'
+  })
+  store.on('error', function(error){
+    assert.ifError(error)
+    assert.ok(false)
+  })
+}
 
-var app = express();
-
+let app = express();
 app.set('secretKey', 'jwt_pwd_!!223344')
-
 app.use(session({
   cookie:{ maxAge: 240 * 60 * 60 * 1000},
   store: store,
@@ -36,6 +48,7 @@ app.use(session({
 
 var mongoose = require('mongoose');
 const { decode } = require('punycode');
+const { assert } = require('console');
 
 // Si estoy en el ambiente de desarrollo, usar
 //var mongoDB = 'mongodb://localhost/red_bicicletas'
@@ -146,6 +159,16 @@ app.use('/policy_privacy', function(req, res){
 app.use('/google21ee478c052e87e3.html', function(req, res){
   res.sendFile(__dirname+'/public/google21ee478c052e87e3.html')
 })
+
+app.get('/auth/google',
+  passport.authenticate('google', { scope: ['profile'] }));
+
+app.get('/auth/google/callback', 
+  passport.authenticate('google', { failureRedirect: '/login' }),
+  function(req, res) {
+    // Successful authentication, redirect home.
+    res.redirect('/');
+  });
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
