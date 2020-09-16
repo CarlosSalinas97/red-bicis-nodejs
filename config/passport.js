@@ -18,16 +18,18 @@ passport.use(new localStrategy(
 
 
 passport.use(new GoogleStrategy({
-    clientID: process.env.GOOGLE_CLIENT_ID,
-    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: "https://red-bicicletas-salinas.herokuapp.com/auth/google/callback"
-},
+        clientID: process.env.GOOGLE_CLIENT_ID,
+        clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+        callbackURL: 'https://red-bicicletas-salinas.herokuapp.com/auth/google/callback'
+    },
     function(accessToken, refreshToken, profile, cb) {
-        Usuario.findOrCreate({ googleId: profile.id }, function (err, user) {
+        console.log(profile);
+    
+        Usuario.findOneOrCreateByGoogle(profile, function (err, user) {
             return cb(err, user);
         });
     }
-))
+));
 
 passport.serializeUser(function(user, cb){
     cb(null, user.id)
