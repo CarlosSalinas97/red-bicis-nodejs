@@ -143,6 +143,9 @@ app.use('/policy_privacy', function(req, res){
   res.sendFile(__dirname+'/public/policy_privacy.html')
 })
 
+app.use('/google21ee478c052e87e3.html', function(req, res){
+  res.sendFile(__dirname+'/public/google21ee478c052e87e3.html')
+})
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
